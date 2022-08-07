@@ -1,33 +1,36 @@
 // 实现物料区组件可以拖拽的脚本
-import {events} from './events';
-export function useMenuDragger(containerRef,data){
-    let currentComponent = null;
+import { events } from './events'
+export function useMenuDragger (containerRef, data) {
+    let currentComponent = null
     const dragenter = (e) => {
-        e.dataTransfer.dropEffect = 'move'; // h5拖动的图标
+        e.dataTransfer.dropEffect = 'move' // h5拖动的图标
     }
     const dragover = (e) => {
-        e.preventDefault();
+        e.preventDefault()
     }
     const dragleave = (e) => {
-        e.dataTransfer.dropEffect = 'none';
+        e.dataTransfer.dropEffect = 'none'
     }
     const drop = (e) => {
         // 
-        let blocks =  data.value.blocks; // 内部已经渲染的组件
+        let blocks = data.value.blocks // 内部已经渲染的组件
         // 在原有的组件上更新
-        data.value = {...data.value,blocks:[
-            ...blocks,
-            {
-                top:e.offsetY,
-                left:e.offsetX,
-                zIndex:1,
-                key:currentComponent.key,
-                alignCenter:true, // 希望松手的时候你可以居中
-                props:{},
-                model:{}
-            }
-        ]}
-        currentComponent = null;
+        data.value = {
+            ...data.value, blocks: [
+                ...blocks,
+                {
+                    top: e.offsetY,
+                    left: e.offsetX,
+                    zIndex: 1,
+                    key: currentComponent.key,
+                    alignCenter: true, // 希望松手的时候你可以居中
+                    // 每次拖拽松手时都有一个全新属性和model
+                    props: {},
+                    model: {}
+                }
+            ]
+        }
+        currentComponent = null
     }
     const dragstart = (e, component) => {
         // dragenter进入元素中 添加一个移动的标识
@@ -35,21 +38,21 @@ export function useMenuDragger(containerRef,data){
         // dragleave 离开元素的时候 需要增加一个禁用标识
         // drop 松手的时候 根据拖拽的组件 添加一个组件
         console.log(e.target.style)
-        e.target.style.opacity = 1;
+        e.target.style.opacity = 1
         containerRef.value.addEventListener('dragenter', dragenter)
         containerRef.value.addEventListener('dragover', dragover)
         containerRef.value.addEventListener('dragleave', dragleave)
         containerRef.value.addEventListener('drop', drop)
         currentComponent = component
-        
-        events.emit('start'); // 发布start
+
+        events.emit('start') // 发布start
     }
-    const dragend = (e)=>{
+    const dragend = (e) => {
         containerRef.value.removeEventListener('dragenter', dragenter)
         containerRef.value.removeEventListener('dragover', dragover)
         containerRef.value.removeEventListener('dragleave', dragleave)
         containerRef.value.removeEventListener('drop', drop)
-        events.emit('end'); // 发布end
+        events.emit('end') // 发布end
     }
     return {
         dragstart,
