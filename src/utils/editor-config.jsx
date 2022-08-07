@@ -181,8 +181,10 @@ registerConfig.register({
       <ElDivider
         style={{
           backgroundColor: props.color,
-        }}>
-        {props.text || '渲染内容'}
+        }}
+        direction={props.type}
+        content-position={props.position}>
+        {props.text || ''}
       </ElDivider>
     </div>
   ),
@@ -190,6 +192,15 @@ registerConfig.register({
   props: {
     text: createInputProp('分割线内容'),
     color: createColorProp('分割线颜色'),
+    type: createSelectProp('分割线方向', [
+      { label: '水平', value: 'horizontal' },
+      { label: '垂直', value: 'vertical' },
+    ]),
+    position: createSelectProp('文字位置', [
+      { label: '居中(默认)', value: 'center' },
+      { label: '左', value: 'left' },
+      { label: '右', value: 'right' },
+    ]),
   },
 })
 // model:{// {start:'start',end:'end'}
