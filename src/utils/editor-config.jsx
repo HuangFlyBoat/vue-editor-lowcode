@@ -2,7 +2,7 @@
 // key对应的组件映射关系
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect } from 'element-plus'
 import Range from '../components/Range'
-
+import img from '../assets/caption.png'
 function createEditorConfig() {
   const componentList = []
   const componentMap = {}
@@ -210,7 +210,11 @@ registerConfig.register({
     width: true,
     height: true,
   },
-  preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
+  preview: () => (
+    <div style={{ width: 125 + 'px', height: 75 + 'px' }}>
+      <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
+    </div>
+  ),
   render: ({ props, size }) => (
     <div className="divider" style={{ width: size.width + 'px' }}>
       <ElDivider
@@ -223,20 +227,8 @@ registerConfig.register({
       </ElDivider>
     </div>
   ),
-  key: 'divider',
-  props: {
-    text: createInputProp('分割线内容'),
-    color: createColorProp('分割线颜色'),
-    type: createSelectProp('分割线方向', [
-      { label: '水平', value: 'horizontal' },
-      { label: '垂直', value: 'vertical' },
-    ]),
-    position: createSelectProp('文字位置', [
-      { label: '居中(默认)', value: 'center' },
-      { label: '左', value: 'left' },
-      { label: '右', value: 'right' },
-    ]),
-  },
+  key: 'img',
+  props: {},
 })
 // model:{// {start:'start',end:'end'}
 //     start:'开始字段',
