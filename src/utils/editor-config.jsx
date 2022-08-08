@@ -1,6 +1,5 @@
 // 列表区可以显示所有的物料
 // key对应的组件映射关系
-import data from '../data.json'
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect } from 'element-plus'
 import Range from '../components/Range'
 
@@ -174,6 +173,42 @@ registerConfig.register({
   label: '分割线',
   resize: {
     width: true,
+  },
+  preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
+  render: ({ props, size }) => (
+    <div className="divider" style={{ width: size.width + 'px' }}>
+      <ElDivider
+        style={{
+          backgroundColor: props.color,
+        }}
+        direction={props.type}
+        content-position={props.position}>
+        {props.text || ''}
+      </ElDivider>
+    </div>
+  ),
+  key: 'divider',
+  props: {
+    text: createInputProp('分割线内容'),
+    color: createColorProp('分割线颜色'),
+    type: createSelectProp('分割线方向', [
+      { label: '水平', value: 'horizontal' },
+      { label: '垂直', value: 'vertical' },
+    ]),
+    position: createSelectProp('文字位置', [
+      { label: '居中(默认)', value: 'center' },
+      { label: '左', value: 'left' },
+      { label: '右', value: 'right' },
+    ]),
+  },
+})
+
+// 图片组件注册
+registerConfig.register({
+  label: '图片',
+  resize: {
+    width: true,
+    height: true,
   },
   preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
   render: ({ props, size }) => (
