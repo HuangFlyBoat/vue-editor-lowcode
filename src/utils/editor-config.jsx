@@ -3,6 +3,7 @@
 import data from '../data.json'
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect } from 'element-plus'
 import Range from '../components/Range'
+import { getParam, event_list } from "../packages/events.js"
 
 function createEditorConfig() {
   const componentList = []
@@ -32,7 +33,7 @@ const createSelectProp = (label, options) => ({
   options,
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
-
+const creatEventListProp = (label, List) => ({ type: 'button', label, List })
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 
@@ -104,7 +105,8 @@ registerConfig.register({
     <ElButton
       style={{ height: size.height + 'px', width: size.width + 'px' }}
       type={props.type}
-      size={props.size}>
+      size={props.size}
+      onClick={() => getParam(props)}>
       {props.text || '渲染按钮'}
     </ElButton>
   ),
@@ -124,6 +126,13 @@ registerConfig.register({
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
     ]),
+    eventList: creatEventListProp('添加事件', {
+      eventList: [
+        { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
+        { label: 'alert 事件', param: '', key: 'alert', event: event_list[1] },
+      ]
+    }
+    )
   },
 })
 

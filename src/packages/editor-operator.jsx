@@ -4,13 +4,14 @@ import { defineComponent, inject, watch, reactive } from "vue";
 import { ElForm, ElFormItem, ElButton, ElInputNumber, ElColorPicker, ElSelect, ElOption, ElInput } from 'element-plus'
 import deepcopy from "deepcopy";
 import TableEditor from "./table-editor";
+import EventList from "./events-list"
 
 export default defineComponent({
     props: {
         block: { type: Object }, // 用户最后选中的元素
         data: { type: Object }, // 当前所有的数据
-        updateContainer:{type:Function},
-        updateBlock:{type:Function}
+        updateContainer: { type: Function },
+        updateBlock: { type: Function }
     },
     setup(props, ctx) {
         const config = inject('config'); // 组件的配置信息
@@ -24,11 +25,11 @@ export default defineComponent({
                 state.editData = deepcopy(props.block);
             }
         }
-        const apply = () =>{
+        const apply = () => {
             if (!props.block) { // 更改组件容器的大小
-                props.updateContainer({...props.data,container: state.editData});
+                props.updateContainer({ ...props.data, container: state.editData });
             } else { // 更改组件的配置
-                props.updateBlock(state.editData,props.block);
+                props.updateBlock(state.editData, props.block);
             }
 
         }
@@ -50,7 +51,7 @@ export default defineComponent({
                 // 拿到key对应的组件
                 let component = config.componentMap[props.block.key];
                 // 如果组件和组件里的属性都有值则渲染其属性
-                if (component && component.props) { 
+                if (component && component.props) {
                     // 在config里经过工厂函数后，我们获取到组件（如t文本组件）的props内容格式是这样的，还没有样式，需要根据type内容渲染
                     // {text:{type:'xxx'},size:{},color:{}}
                     // Object.entries(component.props).map解构
@@ -63,34 +64,35 @@ export default defineComponent({
                                 color: () => <ElColorPicker v-model={state.editData.props[propName]}></ElColorPicker>,
                                 select: () => <ElSelect v-model={state.editData.props[propName]}>
                                     {propConfig.options.map(opt => {
-                                        
+
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
                                     })}
                                 </ElSelect>,
-                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>
-                                
+                                table: () => <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
+                                button: () => <EventList propConfig={propConfig} v-model={state.editData.props[propName]}></EventList>
+
                             }[propConfig.type]()}
                         </ElFormItem>
                     }))
                 }
 
-                if(component && component.model){
+                if (component && component.model) {
                     //                                                 default   标签名
-                    content.push(Object.entries(component.model).map(([modelName,label])=>{
+                    content.push(Object.entries(component.model).map(([modelName, label]) => {
                         return <ElFormItem label={label}>
                             {/* model => {default:"username"} */}
-                            <ElInput  v-model={state.editData.model[modelName]}></ElInput>
+                            <ElInput v-model={state.editData.model[modelName]}></ElInput>
                         </ElFormItem>
                     }))
                 }
-              
+
             }
 
 
             return <ElForm labelPosition="top" style="padding:30px">
                 {content}
                 <ElFormItem>
-                    <ElButton type="primary" onClick={()=>apply()}>应用</ElButton>
+                    <ElButton type="primary" onClick={() => apply()}>应用</ElButton>
                     <ElButton onClick={reset} >重置</ElButton>
                 </ElFormItem>
             </ElForm>
