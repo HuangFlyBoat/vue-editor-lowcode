@@ -68,30 +68,27 @@ export default defineComponent({
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
                                     })}
                                 </ElSelect>,
-<<<<<<< HEAD
-                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
-                                imgupload:()=><input type="file" accept="image/*" onInput={(e)=>{
+                                table: () => <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
+                                imgupload: () => <input type="file" accept="image/*" onInput={(e) => {
                                     // console.log('e.target.flies',e.target.files[0])
                                     // input元素 blur的时候，需要将上次图片的input元素的value设置为空字符串，否则会报错了，故不能用双向绑定
                                     const reader = new FileReader()
                                     reader.onload = () => {
                                         state.editData.props[propName] = reader.result
                                         // console.log('sss',state.editData.props[propName])
-                                      }
+                                    }
                                     reader.readAsDataURL(e.target.files[0])
-                                    
+
                                 }}></input>,
-                                switch:()=><ElSwitch v-model={state.editData.props[propName]}></ElSwitch>,                        
-                                radio: ()=> <ElRadio v-model={state.editData.props[propName]}>
+                                switch: () => <ElSwitch v-model={state.editData.props[propName]}></ElSwitch>,
+                                radio: () => <ElRadio v-model={state.editData.props[propName]}>
                                     {propConfig.options.map(opt => {
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
                                     })}
-                                </ElRadio>
-=======
+                                </ElRadio>,
                                 table: () => <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
                                 button: () => <EventList propConfig={propConfig} v-model={state.editData.props[propName]}></EventList>
 
->>>>>>> origin/Yan
                             }[propConfig.type]()}
                         </ElFormItem>
                     }))

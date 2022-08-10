@@ -2,12 +2,9 @@
 // key对应的组件映射关系
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, CircleClose, ElRadioGroup } from 'element-plus'
 import Range from '../components/Range'
-<<<<<<< HEAD
 import img from '../assets/caption.png'
-=======
 import { getParam, event_list } from "../packages/events.js"
 
->>>>>>> origin/Yan
 function createEditorConfig() {
   const componentList = []
   const componentMap = {}
@@ -36,16 +33,13 @@ const createSelectProp = (label, options) => ({
   options,
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
-<<<<<<< HEAD
 const createImguploadProp = (label) => ({ type: 'imgupload', label })
-const createSwitchProp = (label) => ({type: 'switch', label})
-=======
+const createSwitchProp = (label) => ({ type: 'switch', label })
 const creatEventListProp = (label, List) => ({ type: 'button', label, List })
->>>>>>> origin/Yan
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 //添加单选框属性
-const createRadioProp = (label, options) => ({type: 'radio',label, options})
+const createRadioProp = (label, options) => ({ type: 'radio', label, options })
 // 下拉框组件注册
 registerConfig.register({
   label: '下拉框',
@@ -134,9 +128,6 @@ registerConfig.register({
       { label: '中等', value: 'medium' },
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
-<<<<<<< HEAD
-    ])
-=======
     ]),
     eventList: creatEventListProp('添加事件', {
       eventList: [
@@ -145,7 +136,6 @@ registerConfig.register({
       ]
     }
     )
->>>>>>> origin/Yan
   },
 })
 
@@ -172,14 +162,14 @@ registerConfig.register({
     // {default:'username'}
     default: '绑定字段',
   },
-  props:{
+  props: {
     placeholder: createInputProp('PlaceHolder'),
     switch1: createSwitchProp('Disabled'),
     switch2: createSwitchProp('支持一键清空'),
     switch3: createSwitchProp('密码框'),
-    size: createSelectProp('尺寸',[
+    size: createSelectProp('尺寸', [
       { label: '默认', value: '' },
-      { label: '大', value: 'large' },   
+      { label: '大', value: 'large' },
       { label: '小', value: 'small' },
     ]),
   }
@@ -254,29 +244,30 @@ registerConfig.register({
       <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
     </div>
   ),
-  render: ({ props, size }) =><div className="uploadImg" style={{ width: size.width + 'px' , height: size.height + 'px'}}>
-    <img src={props.url?props.url : img} ></img>
-    </div> ,
+  render: ({ props, size }) => <div className="uploadImg" style={{ width: size.width + 'px', height: size.height + 'px' }}>
+    <img src={props.url ? props.url : img} ></img>
+  </div>,
   key: 'img',
   props: {
-    url:createImguploadProp('上传图片') 
+    url: createImguploadProp('上传图片')
   },
 })
 //单选框组件注册
 registerConfig.register({
   label: '单选框',
   preview: () => <div><ElRadio>备选项</ElRadio>
-    <ElRadio label = '1'>备选项</ElRadio>
+    <ElRadio label='1'>备选项</ElRadio>
   </div>,
-  render: ({props}) => {
+  render: ({ props }) => {
     return <ElButton>
       <ElRadioGroup v-model={props.key}>
         {(props.options || []).map((opt, index) => {
           //传出的备选项绑定label
-          return <ElRadio  label={opt.label} >{opt.label}</ElRadio>
+          return <ElRadio label={opt.label} >{opt.label}</ElRadio>
         })}
       </ElRadioGroup>
-    </ElButton>},
+    </ElButton>
+  },
   key: 'radio',
   props: {
     options: createTableProp('添加选项', {
