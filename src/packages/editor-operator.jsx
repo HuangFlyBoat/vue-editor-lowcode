@@ -67,7 +67,12 @@ export default defineComponent({
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
                                     })}
                                 </ElSelect>,
-                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>
+                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
+                                imgupload:()=><input type="file" accept="image/*" onInput={(e)=>{
+                                    // console.log('e.target.value',e.target.value)
+                                    // input元素 blur的时候，需要将上次图片的input元素的value设置为空字符串，否则会报错了，故不能用双向绑定
+                                    state.editData.props[propName]=e.target.value
+                                }}></input>
                                 
                             }[propConfig.type]()}
                         </ElFormItem>
