@@ -236,3 +236,13 @@
 .divider {
   width: 550px;
 }
+
+// 图片默认大小
+.uploadImg {
+  width: 200px;
+  height: 200px;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
