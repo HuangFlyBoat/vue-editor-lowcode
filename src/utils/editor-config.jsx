@@ -1,6 +1,6 @@
 // 列表区可以显示所有的物料
 // key对应的组件映射关系
-import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, ElRadioGroup } from 'element-plus'
+import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, CircleClose, ElRadioGroup } from 'element-plus'
 import Range from '../components/Range'
 import img from '../assets/caption.png'
 function createEditorConfig() {
@@ -32,6 +32,7 @@ const createSelectProp = (label, options) => ({
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
 const createImguploadProp = (label) => ({ type: 'imgupload', label })
+const createSwitchProp = (label) => ({type: 'switch', label})
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 //添加单选框属性
@@ -123,7 +124,7 @@ registerConfig.register({
       { label: '中等', value: 'medium' },
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
-    ]),
+    ])
   },
 })
 
@@ -134,17 +135,33 @@ registerConfig.register({
     width: true, // 更改输入框的横向大小
   },
   preview: () => <ElInput placeholder="预览输入框"></ElInput>,
-  render: ({ model, size }) => (
+  render: ({ model, size, props }) => (
     <ElInput
-      placeholder="渲染输入框"
+      placeholder={props.placeholder}
       {...model.default}
-      style={{ width: size.width + 'px' }}></ElInput>
+      style={{ width: size.width + 'px' }}
+      color={props.color}
+      disabled={props.switch1}
+      clearable={props.switch2}
+      show-password={props.switch3}
+      size={props.size}></ElInput>
   ),
   key: 'input',
   model: {
     // {default:'username'}
     default: '绑定字段',
   },
+  props:{
+    placeholder: createInputProp('PlaceHolder'),
+    switch1: createSwitchProp('Disabled'),
+    switch2: createSwitchProp('支持一键清空'),
+    switch3: createSwitchProp('密码框'),
+    size: createSelectProp('尺寸',[
+      { label: '默认', value: '' },
+      { label: '大', value: 'large' },   
+      { label: '小', value: 'small' },
+    ]),
+  }
 })
 
 // 范围选择器组件注册

@@ -1,7 +1,7 @@
 // 属性栏editor-right一侧的渲染规则，传入两个数据，用户最后选择的元素和全局data（包含容器宽高，单独考虑到最后选择为容器部分）
 
 import { defineComponent, inject, watch, reactive } from "vue";
-import { ElForm, ElFormItem, ElButton, ElInputNumber, ElColorPicker, ElSelect, ElOption, ElInput } from 'element-plus'
+import { ElForm, ElFormItem, ElButton, ElInputNumber, ElColorPicker, ElSelect, ElOption, ElInput, ElSwitch } from 'element-plus'
 import deepcopy from "deepcopy";
 import TableEditor from "./table-editor";
 
@@ -79,6 +79,7 @@ export default defineComponent({
                                     reader.readAsDataURL(e.target.files[0])
                                     
                                 }}></input>,
+                                switch:()=><ElSwitch v-model={state.editData.props[propName]}></ElSwitch>,                        
                                 radio: ()=> <ElRadio v-model={state.editData.props[propName]}>
                                     {propConfig.options.map(opt => {
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
