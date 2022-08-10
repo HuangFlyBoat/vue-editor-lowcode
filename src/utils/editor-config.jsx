@@ -31,7 +31,7 @@ const createSelectProp = (label, options) => ({
   options,
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
-
+const createImguploadProp = (label) => ({ type: 'imgupload', label })
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 
@@ -215,20 +215,11 @@ registerConfig.register({
       <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
     </div>
   ),
-  render: ({ props, size }) => (
-    <div className="divider" style={{ width: size.width + 'px' }}>
-      <ElDivider
-        style={{
-          backgroundColor: props.color,
-        }}
-        direction={props.type}
-        content-position={props.position}>
-        {props.text || ''}
-      </ElDivider>
-    </div>
-  ),
+  render: ({ props, size }) => <img src={props.url?props.url : img} style={{ width: size.width + 'px' , height: size.height + 'px'}}></img>,
   key: 'img',
-  props: {},
+  props: {
+    url:createImguploadProp('上传图片') 
+  },
 })
 // model:{// {start:'start',end:'end'}
 //     start:'开始字段',

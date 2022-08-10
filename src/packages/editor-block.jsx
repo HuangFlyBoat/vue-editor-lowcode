@@ -30,7 +30,6 @@ export default defineComponent({
             const component = config.componentMap[props.block.key];
             // 获取render函数
 
-
             const RenderComponent = component.render({
                 size: props.block.hasResize ? { width: props.block.width, height: props.block.height } : {},
                 props: props.block.props,
