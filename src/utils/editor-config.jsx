@@ -215,7 +215,9 @@ registerConfig.register({
       <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
     </div>
   ),
-  render: ({ props, size }) => <img src={props.url?props.url : img} style={{ width: size.width + 'px' , height: size.height + 'px'}}></img>,
+  render: ({ props, size }) =><div className="uploadImg" style={{ width: size.width + 'px' , height: size.height + 'px'}}>
+    <img src={props.url?props.url : img} ></img>
+    </div> ,
   key: 'img',
   props: {
     url:createImguploadProp('上传图片') 
