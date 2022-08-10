@@ -2,7 +2,12 @@
 // key对应的组件映射关系
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, CircleClose, ElRadioGroup } from 'element-plus'
 import Range from '../components/Range'
+<<<<<<< HEAD
 import img from '../assets/caption.png'
+=======
+import { getParam, event_list } from "../packages/events.js"
+
+>>>>>>> origin/Yan
 function createEditorConfig() {
   const componentList = []
   const componentMap = {}
@@ -31,8 +36,12 @@ const createSelectProp = (label, options) => ({
   options,
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
+<<<<<<< HEAD
 const createImguploadProp = (label) => ({ type: 'imgupload', label })
 const createSwitchProp = (label) => ({type: 'switch', label})
+=======
+const creatEventListProp = (label, List) => ({ type: 'button', label, List })
+>>>>>>> origin/Yan
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 //添加单选框属性
@@ -105,7 +114,8 @@ registerConfig.register({
     <ElButton
       style={{ height: size.height + 'px', width: size.width + 'px' }}
       type={props.type}
-      size={props.size}>
+      size={props.size}
+      onClick={() => getParam(props)}>
       {props.text || '渲染按钮'}
     </ElButton>
   ),
@@ -124,7 +134,18 @@ registerConfig.register({
       { label: '中等', value: 'medium' },
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
+<<<<<<< HEAD
     ])
+=======
+    ]),
+    eventList: creatEventListProp('添加事件', {
+      eventList: [
+        { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
+        { label: 'alert 事件', param: '', key: 'alert', event: event_list[1] },
+      ]
+    }
+    )
+>>>>>>> origin/Yan
   },
 })
 
