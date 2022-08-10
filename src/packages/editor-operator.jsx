@@ -79,8 +79,12 @@ export default defineComponent({
                                     reader.readAsDataURL(e.target.files[0])
                                     
                                 }}></input>,
-                                switch:()=><ElSwitch v-model={state.editData.props[propName]}></ElSwitch>
-                                
+                                switch:()=><ElSwitch v-model={state.editData.props[propName]}></ElSwitch>,                        
+                                radio: ()=> <ElRadio v-model={state.editData.props[propName]}>
+                                    {propConfig.options.map(opt => {
+                                        return <ElOption label={opt.label} value={opt.value}></ElOption>
+                                    })}
+                                </ElRadio>
                             }[propConfig.type]()}
                         </ElFormItem>
                     }))
