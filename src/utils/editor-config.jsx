@@ -1,6 +1,6 @@
 // 列表区可以显示所有的物料
 // key对应的组件映射关系 
-import { ElButton, ElInput, ElOption, ElSelect } from 'element-plus'
+import { ElButton, ElInput, ElOption, ElSelect, ElRadio, ElRadioGroup} from 'element-plus'
 import Range from '../components/Range'
 
 function createEditorConfig() {
@@ -27,6 +27,8 @@ const createInputProp = (label) => ({ type: 'input', label });
 const createColorProp = (label) => ({ type: 'color', label });
 const createSelectProp = (label, options) => ({ type: 'select', label, options })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
+//添加单选框属性
+const createRadioProp = (label, options) => ({type: 'radio',label, options})
 
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容 
@@ -135,6 +137,35 @@ registerConfig.register({
     },
     key: 'range',
 })
+
+//单选框组件注册
+registerConfig.register({
+    label: '单选框',
+    preview: () => <div><ElRadio>备选项</ElRadio>
+                        <ElRadio label = '1'>备选项</ElRadio>
+                    </div>,
+    render: ({props}) => {
+        return <ElButton>
+            <ElRadioGroup v-model={props.key}>
+            {(props.options || []).map((opt, index) => {
+                //传出的备选项绑定label
+                return <ElRadio  label={opt.label} >{opt.label}</ElRadio>
+            })}
+            </ElRadioGroup>
+        </ElButton>},
+    key: 'radio',
+    props: {
+        options: createTableProp('添加选项', {
+            options: [
+                { label: '备选项', field: 'label' },
+            ],
+            key: 'label' // 显示给用户的值 是label值
+        }),
+    },
+    model: { // {default:'username'}
+        default: '绑定字段'
+    }
+});
 
 
 // model:{// {start:'start',end:'end'}

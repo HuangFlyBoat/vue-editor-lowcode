@@ -63,12 +63,15 @@ export default defineComponent({
                                 color: () => <ElColorPicker v-model={state.editData.props[propName]}></ElColorPicker>,
                                 select: () => <ElSelect v-model={state.editData.props[propName]}>
                                     {propConfig.options.map(opt => {
-                                        
                                         return <ElOption label={opt.label} value={opt.value}></ElOption>
                                     })}
                                 </ElSelect>,
-                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>
-                                
+                                table:()=> <TableEditor propConfig={propConfig} v-model={state.editData.props[propName]} ></TableEditor>,
+                                radio: ()=> <ElRadio v-model={state.editData.props[propName]}>
+                                    {propConfig.options.map(opt => {
+                                        return <ElOption label={opt.label} value={opt.value}></ElOption>
+                                    })}
+                                </ElRadio>
                             }[propConfig.type]()}
                         </ElFormItem>
                     }))
