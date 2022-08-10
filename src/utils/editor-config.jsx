@@ -1,6 +1,14 @@
 // 列表区可以显示所有的物料
 // key对应的组件映射关系
-import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, ElRadioGroup } from 'element-plus'
+import {
+  ElButton,
+  ElDivider,
+  ElInput,
+  ElOption,
+  ElSelect,
+  ElRadio,
+  ElRadioGroup,
+} from 'element-plus'
 import Range from '../components/Range'
 import img from '../assets/caption.png'
 function createEditorConfig() {
@@ -11,7 +19,7 @@ function createEditorConfig() {
     componentList,
     componentMap,
     // 注册函数，所有新的组件都要通过注册函数进行注册
-    register: (component) => {
+    register: component => {
       // 存放组件的一个数组，用于记录所有组件
       componentList.push(component)
       // key与组件一一映射的表，方便通过key值来寻找对应组件
@@ -23,34 +31,30 @@ export let registerConfig = createEditorConfig()
 
 // 通过工厂函数来实现复用，用于属性栏的单个属性渲染，返回值为对象
 // 分别有输入框工厂，颜色选择工厂，下拉框工厂和表格工厂
-const createInputProp = (label) => ({ type: 'input', label })
-const createColorProp = (label) => ({ type: 'color', label })
+const createInputProp = label => ({ type: 'input', label })
+const createColorProp = label => ({ type: 'color', label })
 const createSelectProp = (label, options) => ({
   type: 'select',
   label,
   options,
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
-const createImguploadProp = (label) => ({ type: 'imgupload', label })
+const createImguploadProp = label => ({ type: 'imgupload', label })
 // 组件区域的注册 label 标签（显示在物料区的左上角），
 // preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 //添加单选框属性
-const createRadioProp = (label, options) => ({type: 'radio',label, options})
+const createRadioProp = (label, options) => ({ type: 'radio', label, options })
 // 下拉框组件注册
 registerConfig.register({
   label: '下拉框',
   preview: () => <ElSelect modelValue=""></ElSelect>,
   render: ({ props, model }) => {
+    const { options, size } = props
     return (
-      <ElSelect {...model.default}>
-        {(props.options || []).map((opt, index) => {
-          return (
-            <ElOption
-              label={opt.label}
-              value={opt.value}
-              key={index}></ElOption>
-          )
-        })}
+      <ElSelect {...model.default} size={size}>
+        {(options || []).map((opt, index) => (
+          <ElOption label={opt.label} value={opt.value} key={index} />
+        ))}
       </ElSelect>
     )
   },
@@ -64,10 +68,18 @@ registerConfig.register({
       ],
       key: 'label', // 显示给用户的值 是label值
     }),
+    size: createSelectProp('组件大小', [
+      { label: '默认', value: '' },
+      { label: '中等', value: 'medium' },
+      { label: '小', value: 'small' },
+      { label: '极小', value: 'mini' },
+    ]),
   },
   model: {
     // {default:'username'}
-    default: '绑定字段',
+    // default: {
+    //   size: '',
+    // },
   },
 })
 
@@ -104,7 +116,8 @@ registerConfig.register({
     <ElButton
       style={{ height: size.height + 'px', width: size.width + 'px' }}
       type={props.type}
-      size={props.size}>
+      size={props.size}
+    >
       {props.text || '渲染按钮'}
     </ElButton>
   ),
@@ -138,7 +151,8 @@ registerConfig.register({
     <ElInput
       placeholder="渲染输入框"
       {...model.default}
-      style={{ width: size.width + 'px' }}></ElInput>
+      style={{ width: size.width + 'px' }}
+    ></ElInput>
   ),
   key: 'input',
   model: {
@@ -159,7 +173,8 @@ registerConfig.register({
           end: model.end.modelValue,
           'onUpdate:start': model.start['onUpdate:modelValue'],
           'onUpdate:end': model.end['onUpdate:modelValue'],
-        }}></Range>
+        }}
+      ></Range>
     )
   },
   model: {
@@ -183,7 +198,8 @@ registerConfig.register({
           backgroundColor: props.color,
         }}
         direction={props.type}
-        content-position={props.position}>
+        content-position={props.position}
+      >
         {props.text || ''}
       </ElDivider>
     </div>
@@ -216,42 +232,52 @@ registerConfig.register({
       <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
     </div>
   ),
-  render: ({ props, size }) =><div className="uploadImg" style={{ width: size.width + 'px' , height: size.height + 'px'}}>
-    <img src={props.url?props.url : img} ></img>
-    </div> ,
+  render: ({ props, size }) => (
+    <div
+      className="uploadImg"
+      style={{ width: size.width + 'px', height: size.height + 'px' }}
+    >
+      <img src={props.url ? props.url : img}></img>
+    </div>
+  ),
   key: 'img',
   props: {
-    url:createImguploadProp('上传图片') 
+    url: createImguploadProp('上传图片'),
   },
 })
 //单选框组件注册
 registerConfig.register({
   label: '单选框',
-  preview: () => <div><ElRadio>备选项</ElRadio>
-    <ElRadio label = '1'>备选项</ElRadio>
-  </div>,
-  render: ({props}) => {
-    return <ElButton>
-      <ElRadioGroup v-model={props.key}>
-        {(props.options || []).map((opt, index) => {
-          //传出的备选项绑定label
-          return <ElRadio  label={opt.label} >{opt.label}</ElRadio>
-        })}
-      </ElRadioGroup>
-    </ElButton>},
+  preview: () => (
+    <div>
+      <ElRadio>备选项</ElRadio>
+      <ElRadio label="1">备选项</ElRadio>
+    </div>
+  ),
+  render: ({ props }) => {
+    return (
+      <ElButton>
+        <ElRadioGroup v-model={props.key}>
+          {(props.options || []).map((opt, index) => {
+            //传出的备选项绑定label
+            return <ElRadio label={opt.label}>{opt.label}</ElRadio>
+          })}
+        </ElRadioGroup>
+      </ElButton>
+    )
+  },
   key: 'radio',
   props: {
     options: createTableProp('添加选项', {
-      options: [
-        { label: '备选项', field: 'label' },
-      ],
-      key: 'label' // 显示给用户的值 是label值
+      options: [{ label: '备选项', field: 'label' }],
+      key: 'label', // 显示给用户的值 是label值
     }),
   },
-  model: { // {default:'username'}
-    default: '绑定字段'
-  }
-});
+  model: {
+    // {default:'username'}
+    default: '绑定字段',
+  },
+})
 // model:{// {start:'start',end:'end'}
 //     start:'开始字段',
 //     end:'结束字段'
