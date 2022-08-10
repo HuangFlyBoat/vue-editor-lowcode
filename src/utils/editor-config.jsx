@@ -3,6 +3,7 @@
 import { ElButton, ElDivider, ElInput, ElOption, ElSelect, ElRadio, CircleClose, ElRadioGroup } from 'element-plus'
 import Range from '../components/Range'
 import img from '../assets/caption.png'
+import dateRange from '../components/dateRange'
 import { getParam, event_list } from "../packages/events.js"
 
 function createEditorConfig() {
@@ -37,14 +38,14 @@ const createImguploadProp = (label) => ({ type: 'imgupload', label })
 const createSwitchProp = (label) => ({ type: 'switch', label })
 const creatEventListProp = (label, List) => ({ type: 'button', label, List })
 // 组件区域的注册 label 标签（显示在物料区的左上角），
-// preview为预览区的展示，render为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
+// preview为预览区的展示，rtimeEnder为画布区的展示，需要将属性传入，key为关键字，props存储属性区的内容
 //添加单选框属性
 const createRadioProp = (label, options) => ({ type: 'radio', label, options })
 // 下拉框组件注册
 registerConfig.register({
   label: '下拉框',
   preview: () => <ElSelect modelValue=""></ElSelect>,
-  render: ({ props, model }) => {
+  rtimeEnder: ({ props, model }) => {
     return (
       <ElSelect {...model.default}>
         {(props.options || []).map((opt, index) => {
@@ -79,7 +80,7 @@ registerConfig.register({
 registerConfig.register({
   label: '文本',
   preview: () => '预览文本',
-  render: ({ props }) => (
+  rtimeEnder: ({ props }) => (
     <span style={{ color: props.color, fontSize: props.size }}>
       {props.text || '渲染文本'}
     </span>
@@ -104,7 +105,7 @@ registerConfig.register({
     height: true,
   },
   preview: () => <ElButton>预览按钮</ElButton>,
-  render: ({ props, size }) => (
+  rtimeEnder: ({ props, size }) => (
     <ElButton
       style={{ height: size.height + 'px', width: size.width + 'px' }}
       type={props.type}
@@ -146,7 +147,7 @@ registerConfig.register({
     width: true, // 更改输入框的横向大小
   },
   preview: () => <ElInput placeholder="预览输入框"></ElInput>,
-  render: ({ model, size, props }) => (
+  rtimeEnder: ({ model, size, props }) => (
     <ElInput
       placeholder={props.placeholder}
       {...model.default}
@@ -175,26 +176,70 @@ registerConfig.register({
   }
 })
 
-// 范围选择器组件注册
+// 时间选择器组件注册
 registerConfig.register({
-  label: '范围选择器',
+  label: '时间选择器',
   preview: () => <Range placeholder="预览输入框"></Range>,
-  render: ({ model }) => {
+  render: ({ model ,props}) => {
     return (
       <Range
         {...{
-          start: model.start.modelValue, // @update:start
-          end: model.end.modelValue,
-          'onUpdate:start': model.start['onUpdate:modelValue'],
-          'onUpdate:end': model.end['onUpdate:modelValue'],
+          timeStart: model.timeStart.modelValue, // @update:timeStart
+          timeEnd: model.timeEnd.modelValue,
+          'onUpdate:timeStart': model.timeStart['onUpdate:modelValue'],
+          'onUpdate:timeEnd': model.timeEnd['onUpdate:modelValue'],
+          size:props.size,
+          title:props.title
         }}></Range>
     )
   },
   model: {
-    start: '开始范围字段',
-    end: '结束范围字段',
+    timeStart: '开始时间字段',
+    timeEnd: '结束时间字段',
   },
-  key: 'range',
+  key: 'timeRange',
+  props: {
+    title: createInputProp('标题'),
+    size: createSelectProp('组件大小', [
+      { label: 'default', value: '' },
+      { label: 'medium', value: 'medium' },
+      { label: 'mini', value: 'mini' },
+      { label: 'small', value: 'small' },
+    ]),
+  },
+})
+
+// 时间选择器组件注册
+registerConfig.register({
+  label: '日期选择器',
+  preview: () => <dateRange placeholder="预览输入框"></dateRange>,
+  render: ({ model ,props}) => {
+    return (
+      <dateRange
+        {...{
+          dateStart: model.dateStart.modelValue, // @update:timeStart
+          dateEnd: model.dateEnd.modelValue,
+          'onUpdate:dateStart': model.dateStart['onUpdate:modelValue'],
+          'onUpdate:dateEnd': model.dateEnd['onUpdate:modelValue'],
+          size:props.size,
+          title:props.title
+        }}></dateRange>
+    )
+  },
+  model: {
+    dateStart: '开始时间字段',
+    dateEnd: '结束时间字段',
+  },
+  key: 'dateRange',
+  props: {
+    title: createInputProp('标题'),
+    size: createSelectProp('组件大小', [
+      { label: 'default', value: '' },
+      { label: 'medium', value: 'medium' },
+      { label: 'mini', value: 'mini' },
+      { label: 'small', value: 'small' },
+    ]),
+  },
 })
 
 // 分割线组件注册
@@ -204,7 +249,7 @@ registerConfig.register({
     width: true,
   },
   preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
-  render: ({ props, size }) => (
+  rtimeEnder: ({ props, size }) => (
     <div className="divider" style={{ width: size.width + 'px' }}>
       <ElDivider
         style={{
@@ -244,7 +289,7 @@ registerConfig.register({
       <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
     </div>
   ),
-  render: ({ props, size }) => <div className="uploadImg" style={{ width: size.width + 'px', height: size.height + 'px' }}>
+  rtimeEnder: ({ props, size }) => <div className="uploadImg" style={{ width: size.width + 'px', height: size.height + 'px' }}>
     <img src={props.url ? props.url : img} ></img>
   </div>,
   key: 'img',
@@ -258,7 +303,7 @@ registerConfig.register({
   preview: () => <div><ElRadio>备选项</ElRadio>
     <ElRadio label='1'>备选项</ElRadio>
   </div>,
-  render: ({ props }) => {
+  rtimeEnder: ({ props }) => {
     return <ElButton>
       <ElRadioGroup v-model={props.key}>
         {(props.options || []).map((opt, index) => {
@@ -281,7 +326,7 @@ registerConfig.register({
     default: '绑定字段'
   }
 });
-// model:{// {start:'start',end:'end'}
-//     start:'开始字段',
-//     end:'结束字段'
+// model:{// {timeStart:'timeStart',timeEnd:'timeEnd'}
+//     timeStart:'开始字段',
+//     timeEnd:'结束字段'
 // }
