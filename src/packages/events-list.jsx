@@ -29,6 +29,7 @@ export default defineComponent({
             })
         }
         return () => {
+            console.log(props.modelValue);
             return <div class="event-list">
                 <div class="div-events">
                     {/* 无添加事件 */}
@@ -36,8 +37,10 @@ export default defineComponent({
                     <ElButton onClick={add}>添加</ElButton>
 
                     <br></br>
-                    {(props.propConfig.List.eventList[0].param == '') || <ElTag onClick={add}>{props.propConfig.List.eventList[0].label}</ElTag>}
-                    {(props.propConfig.List.eventList[1].param == '') || <ElTag onClick={add}>{props.propConfig.List.eventList[1].label}</ElTag>}
+                    {(props.modelValue == undefined ? props.propConfig.List.eventList[0].param != '' : props.modelValue.key != 'alert') && <ElTag onClick={add}>跳转事件</ElTag>}
+                    {(props.modelValue == undefined ? props.propConfig.List.eventList[1].param != '' : props.modelValue.key != 'redirect') && <ElTag onClick={add}>alert事件</ElTag>}
+                    {/* {(props.modelValue != undefined && props.propConfig.List.eventList[0].param != '') && <ElTag onClick={add}>跳转事件</ElTag>}
+                    {(props.modelValue != undefined && props.propConfig.List.eventList[1].param != '') && <ElTag onClick={add}>alert事件</ElTag>} */}
                 </div>
 
             </div>
