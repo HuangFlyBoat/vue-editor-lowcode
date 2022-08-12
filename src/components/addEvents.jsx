@@ -38,6 +38,8 @@ const EventComponent = defineComponent({
                 state.editData = []
             }
             state.eventList.onConfirm(state.editData);
+            props.eventList.config.List.eventList[1].param = ''
+            props.eventList.config.List.eventList[0].param = ''
             onCancel()
             // console.log(state.editData);
         }
