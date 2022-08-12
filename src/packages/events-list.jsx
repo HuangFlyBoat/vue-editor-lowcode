@@ -2,6 +2,7 @@ import { defineComponent, computed } from "vue";
 import { ElButton, ElTag } from "element-plus";
 import deepcopy from "deepcopy";
 import { $addEvents } from "../components/addEvents"
+import img from '../assets/remove.png'
 
 export default defineComponent({
     props: {
@@ -24,9 +25,12 @@ export default defineComponent({
                 data: data.value,
                 onConfirm(value) {
                     data.value = value // 当点击确认的时候 将数据更新
-
                 }
             })
+        }
+        const remove = () => {
+            data.value = {}
+            console.log(data.value);
         }
         return () => {
             console.log(props.modelValue);
@@ -34,13 +38,19 @@ export default defineComponent({
                 <div class="div-events">
                     {/* 无添加事件 */}
                     {/* {(!data.value || data.value.length <= 2) && <ElButton onClick={add}>添加</ElButton>} */}
-                    <ElButton onClick={add}>添加</ElButton>
+                    {(data.value.key == undefined) && <ElButton onClick={add}>添加</ElButton>}
 
                     <br></br>
-                    {(props.modelValue == undefined ? props.propConfig.List.eventList[0].param != '' : props.modelValue.key != 'alert') && <ElTag onClick={add}>跳转事件</ElTag>}
-                    {(props.modelValue == undefined ? props.propConfig.List.eventList[1].param != '' : props.modelValue.key != 'redirect') && <ElTag onClick={add}>alert事件</ElTag>}
-                    {/* {(props.modelValue != undefined && props.propConfig.List.eventList[0].param != '') && <ElTag onClick={add}>跳转事件</ElTag>}
-                    {(props.modelValue != undefined && props.propConfig.List.eventList[1].param != '') && <ElTag onClick={add}>alert事件</ElTag>} */}
+                    <div class="event">
+                        <div>
+                            {(data.value.key == undefined ? props.propConfig.List.eventList[0].param != '' : data.value.key != 'alert') && <ElTag onClick={add}>跳转事件</ElTag>}
+                            {(data.value.key == undefined ? props.propConfig.List.eventList[0].param != '' : data.value.key != 'alert') && <img src={img} onClick={remove}></img>}
+                        </div>
+                        <div>
+                            {(data.value.key == undefined ? props.propConfig.List.eventList[1].param != '' : data.value.key != 'redirect') && <ElTag onClick={add}>alert事件</ElTag>}
+                            {(data.value.key == undefined ? props.propConfig.List.eventList[1].param != '' : data.value.key != 'redirect') && <img src={img} onClick={remove}></img>}
+                        </div>
+                    </div>
                 </div>
 
             </div>
