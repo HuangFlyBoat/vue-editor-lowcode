@@ -120,6 +120,7 @@ registerConfig.register({
       style={{ height: size.height + 'px', width: size.width + 'px' }}
       type={props.type}
       size={props.size}
+      disabled={props.switch1}
       onClick={() => getParam(props)}>
       {props.text || '渲染按钮'}
     </ElButton>
@@ -140,6 +141,7 @@ registerConfig.register({
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
     ]),
+    switch1: createSwitchProp('Disabled'),
     eventList: creatEventListProp('添加事件', {
       eventList: [
         { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
