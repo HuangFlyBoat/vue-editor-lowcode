@@ -133,7 +133,7 @@ registerConfig.register({
       { label: '成功', value: 'success' },
       { label: '警告', value: 'warning' },
       { label: '危险', value: 'danger' },
-      { label: '文本', value: 'text' },
+      { label: '链接', value: 'text' },
     ]),
     size: createSelectProp('按钮尺寸', [
       { label: '默认', value: '' },
