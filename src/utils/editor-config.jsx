@@ -117,7 +117,7 @@ registerConfig.register({
   preview: () => <ElButton>预览按钮</ElButton>,
   render: ({ props, size }) => (
     <ElButton
-      style={{ height: size.height + 'px', width: size.width + 'px', color: props.color }}
+      style={{ height: size.height + 'px', width: size.width + 'px', color: props.color, backgroundColor: props.backgroundColor }}
       type={props.type}
       size={props.size}
       disabled={props.switch1}
@@ -143,6 +143,7 @@ registerConfig.register({
     ]),
     switch1: createSwitchProp('Disabled'),
     color: createColorProp('文字颜色'),
+    backgroundColor: createColorProp('按钮颜色'),
     eventList: creatEventListProp('添加事件', {
       eventList: [
         { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
