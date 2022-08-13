@@ -305,13 +305,21 @@ registerConfig.register({
   render: ({ props, size }) => (
     <div
       className="uploadImg"
-      style={{ width: size.width + 'px', height: size.height + 'px' }}>
+      style={{ width: size.width + 'px', height: size.height + 'px' }}
+      onClick={() => getParam(props)}
+    >
       <img src={props.url ? props.url : img}></img>
     </div>
   ),
   key: 'img',
   props: {
     url: createImguploadProp('上传图片'),
+    eventList: creatEventListProp('添加事件', {
+      eventList: [
+        { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
+        { label: 'alert 事件', param: '', key: 'alert', event: event_list[1] },
+      ],
+    }),
   },
 })
 //单选框组件注册
