@@ -117,9 +117,10 @@ registerConfig.register({
   preview: () => <img src={require('../assets/button.svg')} width={50}></img>,
   render: ({ props, size }) => (
     <ElButton
-      style={{ height: size.height + 'px', width: size.width + 'px' }}
+      style={{ height: size.height + 'px', width: size.width + 'px', color: props.color, backgroundColor: props.backgroundColor }}
       type={props.type}
       size={props.size}
+      disabled={props.switch1}
       onClick={() => getParam(props)}>
       {props.text || '渲染按钮'}
     </ElButton>
@@ -132,7 +133,7 @@ registerConfig.register({
       { label: '成功', value: 'success' },
       { label: '警告', value: 'warning' },
       { label: '危险', value: 'danger' },
-      { label: '文本', value: 'text' },
+      { label: '链接', value: 'text' },
     ]),
     size: createSelectProp('按钮尺寸', [
       { label: '默认', value: '' },
@@ -140,6 +141,9 @@ registerConfig.register({
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
     ]),
+    switch1: createSwitchProp('Disabled'),
+    color: createColorProp('文字颜色'),
+    backgroundColor: createColorProp('按钮颜色'),
     eventList: creatEventListProp('添加事件', {
       eventList: [
         { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
@@ -298,13 +302,21 @@ registerConfig.register({
   render: ({ props, size }) => (
     <div
       className="uploadImg"
-      style={{ width: size.width + 'px', height: size.height + 'px' }}>
+      style={{ width: size.width + 'px', height: size.height + 'px' }}
+      onClick={() => getParam(props)}
+    >
       <img src={props.url ? props.url : img}></img>
     </div>
   ),
   key: 'img',
   props: {
     url: createImguploadProp('上传图片'),
+    eventList: creatEventListProp('添加事件', {
+      eventList: [
+        { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
+        { label: 'alert 事件', param: '', key: 'alert', event: event_list[1] },
+      ],
+    }),
   },
 })
 //单选框组件注册
