@@ -37,8 +37,6 @@ export function useMenuDragger (containerRef, data) {
         // dragover 在目标元素经过 必须要阻止默认行为 否则不能触发drop
         // dragleave 离开元素的时候 需要增加一个禁用标识
         // drop 松手的时候 根据拖拽的组件 添加一个组件
-        console.log(e.target.style)
-        e.target.style.opacity = 1
         containerRef.value.addEventListener('dragenter', dragenter)
         containerRef.value.addEventListener('dragover', dragover)
         containerRef.value.addEventListener('dragleave', dragleave)

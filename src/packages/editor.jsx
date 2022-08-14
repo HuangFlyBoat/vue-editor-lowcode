@@ -9,7 +9,7 @@ import { useCommand } from './useCommand'
 import { $dialog } from '../components/Dialog'
 import { $dropdown, DropdownItem } from '../components/Dropdown'
 import EditorOperator from './editor-operator'
-import { ElButton } from 'element-plus'
+import { ElButton, ElScrollbar } from 'element-plus'
 export default defineComponent({
   props: {
     modelValue: { type: Object },
@@ -220,14 +220,16 @@ export default defineComponent({
             })}
           </div>
           <div class="editor-right">
-            <div class="editor-right-title">
-              <p>属性栏</p>
-            </div>
-            <EditorOperator
-              block={lastSelectBlock.value}
-              data={data.value}
-              updateContainer={commands.updateContainer}
-              updateBlock={commands.updateBlock}></EditorOperator>
+            <ElScrollbar>
+              <div class="editor-right-title">
+                <p>属性栏</p>
+              </div>
+              <EditorOperator
+                block={lastSelectBlock.value}
+                data={data.value}
+                updateContainer={commands.updateContainer}
+                updateBlock={commands.updateBlock}></EditorOperator>
+            </ElScrollbar>
           </div>
           <div class="editor-container">
             {/*  负责产生滚动条 */}

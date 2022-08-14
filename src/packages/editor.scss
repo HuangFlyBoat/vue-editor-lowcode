@@ -98,10 +98,14 @@
       user-select: none;
       cursor: pointer;
       color: #fff;
-      background-color: rgb(21 48 79 / 50%);
+      background-color: rgba(21, 48, 79, 0.44);
       border-radius: 4px;
       & + & {
         margin-left: 3px;
+      }
+      &:hover {
+        transition: 0.1s;
+        background-color: rgba(21, 48, 79, 0.7);
       }
     }
   }
@@ -270,8 +274,8 @@
 
 // 图片默认大小
 .uploadImg {
-  width: 200px;
-  height: 200px;
+  width: 170px;
+  height: 120px;
 
   img {
     width: 100%;
@@ -293,4 +297,15 @@
       }
     }
   }
+}
+
+// 属性栏
+.el-form-item {
+  margin-bottom: 10px;
+  &:last-child {
+    margin-top: 35px;
+  }
+}
+.el-form--label-top .el-form-item__label {
+  padding: 0 0 4px 0;
 }
