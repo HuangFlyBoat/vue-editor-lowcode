@@ -104,6 +104,7 @@ export default defineComponent({
                     ),
                     imgupload: () => (
                       <input
+                        style={{ width: 70 + 'px' }}
                         type="file"
                         accept="image/*"
                         onInput={(e) => {
