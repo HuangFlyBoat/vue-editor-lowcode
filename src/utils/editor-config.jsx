@@ -54,7 +54,7 @@ const createRadioProp = (label, options) => ({ type: 'radio', label, options })
 // 下拉框组件注册
 registerConfig.register({
   label: '下拉框',
-  preview: () => <ElSelect modelValue=""></ElSelect>,
+  preview: () => <img src={require('../assets/select.svg')} width={50}></img>,
   render: ({ props, model }) => {
     return (
       <ElSelect {...model.default}>
@@ -89,7 +89,7 @@ registerConfig.register({
 // 文本组件注册
 registerConfig.register({
   label: '文本',
-  preview: () => '预览文本',
+  preview: () => <img src={require('../assets/text.svg')} width={50}></img>,
   render: ({ props }) => (
     <span style={{ color: props.color, fontSize: props.size }}>
       {props.text || '渲染文本'}
@@ -114,12 +114,13 @@ registerConfig.register({
     width: true,
     height: true,
   },
-  preview: () => <ElButton>预览按钮</ElButton>,
+  preview: () => <img src={require('../assets/button.svg')} width={50}></img>,
   render: ({ props, size }) => (
     <ElButton
-      style={{ height: size.height + 'px', width: size.width + 'px' }}
+      style={{ height: size.height + 'px', width: size.width + 'px', color: props.color, backgroundColor: props.backgroundColor }}
       type={props.type}
       size={props.size}
+      disabled={props.switch1}
       onClick={() => getParam(props)}>
       {props.text || '渲染按钮'}
     </ElButton>
@@ -132,7 +133,7 @@ registerConfig.register({
       { label: '成功', value: 'success' },
       { label: '警告', value: 'warning' },
       { label: '危险', value: 'danger' },
-      { label: '文本', value: 'text' },
+      { label: '链接', value: 'text' },
     ]),
     size: createSelectProp('按钮尺寸', [
       { label: '默认', value: '' },
@@ -140,6 +141,9 @@ registerConfig.register({
       { label: '小', value: 'small' },
       { label: '极小', value: 'mini' },
     ]),
+    switch1: createSwitchProp('Disabled'),
+    color: createColorProp('文字颜色'),
+    backgroundColor: createColorProp('按钮颜色'),
     eventList: creatEventListProp('添加事件', {
       eventList: [
         { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
@@ -155,7 +159,7 @@ registerConfig.register({
   resize: {
     width: true, // 更改输入框的横向大小
   },
-  preview: () => <ElInput placeholder="预览输入框"></ElInput>,
+  preview: () => <img src={require('../assets/input.svg')} width={50}></img>,
   render: ({ model, size, props }) => (
     <ElInput
       placeholder={props.placeholder}
@@ -188,7 +192,7 @@ registerConfig.register({
 // 时间选择器组件注册
 registerConfig.register({
   label: '时间选择器',
-  preview: () => <Range placeholder="预览输入框"></Range>,
+  preview: () => <img src={require('../assets/timeRange.svg')} width={50}></img>,
   render: ({ model, props }) => {
     return (
       <Range
@@ -221,7 +225,7 @@ registerConfig.register({
 // 时间选择器组件注册
 registerConfig.register({
   label: '日期选择器',
-  preview: () => <dateRange placeholder="预览输入框"></dateRange>,
+  preview: () => <img src={require('../assets/dateRange.svg')} width={50}></img>,
   render: ({ model, props }) => {
     return (
       <dateRange
@@ -257,7 +261,7 @@ registerConfig.register({
   resize: {
     width: true,
   },
-  preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
+  preview: () => <img src={require('../assets/divider.svg')} width={50}></img>,
   render: ({ props, size }) => (
     <div className="divider" style={{ width: size.width + 'px' }}>
       <ElDivider
@@ -293,34 +297,33 @@ registerConfig.register({
     width: true,
     height: true,
   },
-  preview: () => (
-    <div style={{ width: 125 + 'px', height: 75 + 'px' }}>
-      <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
-    </div>
-  ),
+  preview: () => <img src={require('../assets/img.svg')} width={50}></img>,
 
   render: ({ props, size }) => (
     <div
       className="uploadImg"
-      style={{ width: size.width + 'px', height: size.height + 'px' }}>
+      style={{ width: size.width + 'px', height: size.height + 'px' }}
+      onClick={() => getParam(props)}
+    >
       <img src={props.url ? props.url : img}></img>
     </div>
   ),
   key: 'img',
   props: {
     url: createImguploadProp('上传图片'),
+    eventList: creatEventListProp('添加事件', {
+      eventList: [
+        { label: '跳转事件', param: '', key: 'redirect', event: event_list[0] },
+        { label: 'alert 事件', param: '', key: 'alert', event: event_list[1] },
+      ],
+    }),
   },
 })
 //单选框组件注册
 registerConfig.register({
   label: '单选框',
 
-  preview: () => (
-    <div>
-      <ElRadio>备选项</ElRadio>
-      <ElRadio label="1">备选项</ElRadio>
-    </div>
-  ),
+  preview: () => <img src={require('../assets/radio.svg')} width={50}></img>,
   render: ({ props }) => {
     return (
       <ElButton>
@@ -349,5 +352,4 @@ registerConfig.register({
 // model:{// {start:'start',end:'end'}
 //     start:'开始字段',
 //     end:'结束字段'
-
 // }
