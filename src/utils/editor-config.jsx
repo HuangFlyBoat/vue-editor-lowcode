@@ -54,7 +54,7 @@ const createRadioProp = (label, options) => ({ type: 'radio', label, options })
 // 下拉框组件注册
 registerConfig.register({
   label: '下拉框',
-  preview: () => <ElSelect modelValue=""></ElSelect>,
+  preview: () => <img src={require('../assets/select.svg')} width={50}></img>,
   render: ({ props, model }) => {
     return (
       <ElSelect {...model.default}>
@@ -89,7 +89,7 @@ registerConfig.register({
 // 文本组件注册
 registerConfig.register({
   label: '文本',
-  preview: () => '预览文本',
+  preview: () => <img src={require('../assets/text.svg')} width={50}></img>,
   render: ({ props }) => (
     <span style={{ color: props.color, fontSize: props.size }}>
       {props.text || '渲染文本'}
@@ -114,7 +114,7 @@ registerConfig.register({
     width: true,
     height: true,
   },
-  preview: () => <ElButton>预览按钮</ElButton>,
+  preview: () => <img src={require('../assets/button.svg')} width={50}></img>,
   render: ({ props, size }) => (
     <ElButton
       style={{ height: size.height + 'px', width: size.width + 'px' }}
@@ -155,7 +155,7 @@ registerConfig.register({
   resize: {
     width: true, // 更改输入框的横向大小
   },
-  preview: () => <ElInput placeholder="预览输入框"></ElInput>,
+  preview: () => <img src={require('../assets/input.svg')} width={50}></img>,
   render: ({ model, size, props }) => (
     <ElInput
       placeholder={props.placeholder}
@@ -188,7 +188,7 @@ registerConfig.register({
 // 时间选择器组件注册
 registerConfig.register({
   label: '时间选择器',
-  preview: () => <Range placeholder="预览输入框"></Range>,
+  preview: () => <img src={require('../assets/timeRange.svg')} width={50}></img>,
   render: ({ model, props }) => {
     return (
       <Range
@@ -221,7 +221,7 @@ registerConfig.register({
 // 时间选择器组件注册
 registerConfig.register({
   label: '日期选择器',
-  preview: () => <dateRange placeholder="预览输入框"></dateRange>,
+  preview: () => <img src={require('../assets/dateRange.svg')} width={50}></img>,
   render: ({ model, props }) => {
     return (
       <dateRange
@@ -257,7 +257,7 @@ registerConfig.register({
   resize: {
     width: true,
   },
-  preview: () => <ElDivider style={{ width: 150 + 'px' }}></ElDivider>,
+  preview: () => <img src={require('../assets/divider.svg')} width={50}></img>,
   render: ({ props, size }) => (
     <div className="divider" style={{ width: size.width + 'px' }}>
       <ElDivider
@@ -293,11 +293,7 @@ registerConfig.register({
     width: true,
     height: true,
   },
-  preview: () => (
-    <div style={{ width: 125 + 'px', height: 75 + 'px' }}>
-      <img src={img} style={{ width: 100 + '%', height: 100 + '%' }} alt="" />
-    </div>
-  ),
+  preview: () => <img src={require('../assets/img.svg')} width={50}></img>,
 
   render: ({ props, size }) => (
     <div
@@ -315,12 +311,7 @@ registerConfig.register({
 registerConfig.register({
   label: '单选框',
 
-  preview: () => (
-    <div>
-      <ElRadio>备选项</ElRadio>
-      <ElRadio label="1">备选项</ElRadio>
-    </div>
-  ),
+  preview: () => <img src={require('../assets/radio.svg')} width={50}></img>,
   render: ({ props }) => {
     return (
       <ElButton>
@@ -349,5 +340,4 @@ registerConfig.register({
 // model:{// {start:'start',end:'end'}
 //     start:'开始字段',
 //     end:'结束字段'
-
 // }
