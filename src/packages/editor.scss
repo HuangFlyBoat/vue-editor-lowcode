@@ -23,6 +23,7 @@
     height: 500px;
     top: 100px;
     left: 0;
+
     &-item {
       height: 80px;
       width: 80px;
@@ -38,7 +39,7 @@
       user-select: none;
       position: relative;
 
-      > span {
+      >span {
         position: absolute;
         color: black;
         font-size: 5px;
@@ -46,11 +47,13 @@
         margin: 10px;
         bottom: 0;
       }
-      > div {
+
+      >div {
         position: absolute;
         color: black;
         padding: 4px;
       }
+
       &::after {
         content: '';
         position: absolute;
@@ -67,11 +70,13 @@
   &-right {
     right: 0;
     overflow: auto;
+
     &-title {
       height: 100px;
       display: flex;
       justify-content: center;
       align-items: center;
+
       p {
         font-size: 18px;
       }
@@ -100,9 +105,11 @@
       color: #fff;
       background-color: rgba(21, 48, 79, 0.44);
       border-radius: 4px;
-      & + & {
+
+      &+& {
         margin-left: 3px;
       }
+
       &:hover {
         transition: 0.1s;
         background-color: rgba(21, 48, 79, 0.7);
@@ -198,6 +205,7 @@
   width: 270px;
   min-height: 30px;
   align-items: center;
+
   .el-input {
     font-size: 12px;
   }
@@ -299,13 +307,54 @@
   }
 }
 
+.form {
+  .form-control {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+
+    .el-input {
+      display: block;
+      font-family: inherit;
+      font-size: 14px;
+      width: 100%;
+
+      &:focus {
+        outline: 0;
+        border-color: #777;
+      }
+    }
+  }
+
+  .error {
+    input {
+      border-color: #e74c3c;
+      position: relative;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
+    }
+
+    .error-message {
+      visibility: visible;
+    }
+  }
+}
+
 // 属性栏
 .el-form-item {
   margin-bottom: 10px;
+
   &:last-child {
     margin-top: 35px;
   }
 }
+
 .el-form--label-top .el-form-item__label {
   padding: 0 0 4px 0;
 }
