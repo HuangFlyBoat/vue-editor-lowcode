@@ -10,11 +10,13 @@ import {
   ElRadio,
   CircleClose,
   ElRadioGroup,
+  ElForm,
 } from 'element-plus'
 import Range from '../components/Range'
 import img from '../assets/caption.png'
 import dateRange from '../components/dateRange'
 import { getParam, event_list } from '../packages/events.js'
+import { handleBlur } from '../packages/form-validation'
 
 function createEditorConfig() {
   const componentList = []
@@ -42,6 +44,12 @@ const createSelectProp = (label, options) => ({
   type: 'select',
   label,
   options,
+})
+const createFormProp = (label, options, id) => ({
+  type: 'select',
+  label,
+  options,
+  id
 })
 const createTableProp = (label, table) => ({ type: 'table', label, table })
 const createImguploadProp = (label) => ({ type: 'imgupload', label })
@@ -160,17 +168,24 @@ registerConfig.register({
     width: true, // 更改输入框的横向大小
   },
   preview: () => <ElInput placeholder="预览输入框"></ElInput>,
-  render: ({ model, size, props }) => (
-    <ElInput
-      placeholder={props.placeholder}
-      {...model.default}
-      style={{ width: size.width + 'px' }}
-      color={props.color}
-      disabled={props.switch1}
-      clearable={props.switch2}
-      show-password={props.switch3}
-      size={props.size}></ElInput>
-  ),
+  render: ({ model, size, props }) => {
+    return (
+      <ElForm id="form" className="form" novalidate>
+        <div className="form-control">
+          <ElInput
+            type={props.type}
+            placeholder={props.placeholder}
+            id={props.type}
+            onBlur={(e) => { handleBlur(e) }}
+            {...model.default}
+            style={{ width: size.width + 'px' }}
+            disabled={props.switch1}
+            size={props.size}></ElInput>
+          <small className="error-message"></small>
+        </div>
+      </ElForm>
+    )
+  },
   key: 'input',
   model: {
     // {default:'username'}
@@ -179,12 +194,16 @@ registerConfig.register({
   props: {
     placeholder: createInputProp('PlaceHolder'),
     switch1: createSwitchProp('Disabled'),
-    switch2: createSwitchProp('支持一键清空'),
-    switch3: createSwitchProp('密码框'),
     size: createSelectProp('尺寸', [
       { label: '默认', value: '' },
       { label: '大', value: 'large' },
       { label: '小', value: 'small' },
+    ]),
+    type: createFormProp('输入框类型', [
+      { label: 'username', value: 'text' },
+      { label: 'email', value: 'email' },
+      { label: 'password', value: 'password' },
+      { label: 'age', value: 'age' },
     ]),
   },
 })
