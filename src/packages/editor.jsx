@@ -192,10 +192,12 @@ export default defineComponent({
         <div class="editor">
           {/* 物料区域，关于组件在物料区的渲染和样式 */}
           <div class="editor-left">
+            <div class="editor-left-title">物料区</div>
             {/* 根据注册列表 渲染对应的内容  可以实现h5的拖拽*/}
+            <div class="editor-left-material">
             {config.componentList.map((component) => (
               <div
-                class="editor-left-item"
+                class="editor-left-material-item"
                 //设置可拖拽属性
                 draggable
                 //开始拖拽时调用dragstart，将拖拽目标的组件传入
@@ -204,7 +206,7 @@ export default defineComponent({
                 <span>{component.label}</span>
                 <div>{component.preview()}</div>
               </div>
-            ))}
+            ))}</div>
           </div>
           <div class="editor-top">
             {buttons.map((btn, index) => {
@@ -259,6 +261,9 @@ export default defineComponent({
                 )}
               </div>
             </div>
+          </div>
+          <div className="editor-watermark">
+            <div className="editor-watermark-item">食堂吃饭不排队</div>
           </div>
         </div>
       )
