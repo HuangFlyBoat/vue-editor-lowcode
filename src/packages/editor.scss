@@ -91,29 +91,6 @@
           bottom: 0;
           background: #ccc;
           opacity: 0.2;
-          > span {
-            position: absolute;
-            color: black;
-            font-size: 5px;
-            padding: 4px;
-            margin: 10px;
-            bottom: 0;
-          }
-          > div {
-            position: absolute;
-            color: black;
-            padding: 4px;
-          }
-          &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: #ccc;
-            opacity: 0.2;
-          }
         }
       }
     }
