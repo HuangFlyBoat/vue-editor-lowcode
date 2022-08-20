@@ -264,15 +264,6 @@ export default defineComponent({
           </div>
           <div className="editor-watermark">
             <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
-            <div className="editor-watermark-item">食堂吃饭不排队</div>
           </div>
         </div>
       )
