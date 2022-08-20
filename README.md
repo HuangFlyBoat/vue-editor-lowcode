@@ -1,19 +1,21 @@
 # 食堂排不到队 在这里~
 
-## Project setup
+## 项目预览地址
+
 ```
-npm install
+https://huangflyboat.github.io/vue-editor-lowcode/dist/
 ```
 
 ### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 ### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 字节跳动第四届青训营大作业
